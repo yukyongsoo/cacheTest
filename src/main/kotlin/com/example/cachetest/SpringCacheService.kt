@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 class SpringCacheService(
     private val testRepository: TestRepository
 ) {
-    @Cacheable
+    @Cacheable("spring")
     fun get(id: Long): Test? {
         return testRepository.findByIdOrNull(id)
     }
