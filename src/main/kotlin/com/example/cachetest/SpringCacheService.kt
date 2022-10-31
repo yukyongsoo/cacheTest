@@ -5,7 +5,7 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
 @Service
-class RedisCacheService(
+class SpringCacheService(
     private val testRepository: TestRepository
 ) {
     @Cacheable
