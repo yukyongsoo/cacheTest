@@ -1,0 +1,10 @@
+spring:
+  cache:
+    type: redis
+  datasource:
+    url: jdbc:mysql://localhost:3306/test
+    username: root
+    password: 1234
+  sql:
+    init:
+      mode: always
