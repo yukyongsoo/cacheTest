@@ -2,32 +2,23 @@ package com.example.cachetest
 
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Disabled
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.TestInstance
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.TestConstructor
 
 @SpringBootTest
-@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class CacheTestApplicationTests(
-    private val springCacheService: SpringCacheService,
-) {
-    private val hitRateArray = arrayOf(
-        1L..0L,
-        1L..10L,
-        1L..25L,
-        1L..50L,
-        1L..75L,
-        1L..100L
-    )
+@Disabled
+class CacheTestApplicationTests{
+    @Autowired
+    protected lateinit var springCacheService: SpringCacheService
 
-    private val hitRate = hitRateArray[0]
-
-    private val testRange = 1L..100L
-
-    @BeforeEach
-    fun initCache() {
+    fun initCache(hitRate: LongRange) {
         hitRate.forEach {
             springCacheService.get(it)
         }
@@ -38,10 +29,47 @@ class CacheTestApplicationTests(
         springCacheService.clear()
     }
 
-    @RepeatedTest(1000)
-    fun `스프링 캐시 조회`() {
-        for (id in testRange) {
+    @RepeatedTest(TestSupporter.repeatSize)
+    fun springTest() {
+        for (id in TestSupporter.testRange) {
             springCacheService.get(id)
         }
+    }
+}
+
+class SpringHit0: CacheTestApplicationTests()
+
+class SpringHit10: CacheTestApplicationTests() {
+    @BeforeEach
+    fun initCache() {
+        initCache(TestSupporter.hitRate10)
+    }
+}
+
+class SpringHit25: CacheTestApplicationTests() {
+    @BeforeEach
+    fun initCache() {
+        initCache(TestSupporter.hitRate25)
+    }
+}
+
+class SpringHit50: CacheTestApplicationTests() {
+    @BeforeEach
+    fun initCache() {
+        initCache(TestSupporter.hitRate50)
+    }
+}
+
+class SpringHit75: CacheTestApplicationTests() {
+    @BeforeEach
+    fun initCache() {
+        initCache(TestSupporter.hitRate75)
+    }
+}
+
+class SpringHit100: CacheTestApplicationTests() {
+    @BeforeEach
+    fun initCache() {
+        initCache(TestSupporter.hitRate100)
     }
 }

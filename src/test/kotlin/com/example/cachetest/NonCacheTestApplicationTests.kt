@@ -11,11 +11,9 @@ import org.springframework.test.context.TestConstructor
 class NonCacheTestApplicationTests(
     private val nonCacheService: NonCacheService,
 ) {
-    private val testRange = 1L..100L
-
-    @RepeatedTest(1000)
+    @RepeatedTest(TestSupporter.repeatSize)
     fun `직접 데이터베이스 조회`() {
-        for (id in testRange) {
+        for (id in TestSupporter.testRange) {
             nonCacheService.get(id)
         }
     }
