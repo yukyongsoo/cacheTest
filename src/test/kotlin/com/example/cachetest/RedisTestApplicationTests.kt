@@ -10,8 +10,8 @@ import org.springframework.test.context.TestConstructor
 @SpringBootTest
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class CacheTestApplicationTests(
-    private val springCacheService: SpringCacheService,
+class RedisTestApplicationTests(
+    private val redisTemplateService: RedisTemplateService
 ) {
     private val hitRateArray = arrayOf(
         1L..0L,
@@ -19,7 +19,7 @@ class CacheTestApplicationTests(
         1L..25L,
         1L..50L,
         1L..75L,
-        1L..100L
+        1L..100L,
     )
 
     private val hitRate = hitRateArray[0]
@@ -29,19 +29,19 @@ class CacheTestApplicationTests(
     @BeforeEach
     fun initCache() {
         hitRate.forEach {
-            springCacheService.get(it)
+            redisTemplateService.addCache(it)
         }
     }
 
     @AfterEach
     fun clearCache() {
-        springCacheService.clear()
+        redisTemplateService.clear()
     }
 
     @RepeatedTest(1000)
-    fun `스프링 캐시 조회`() {
+    fun `레디스 템플릿 조회`() {
         for (id in testRange) {
-            springCacheService.get(id)
+            redisTemplateService.get(id)
         }
     }
 }
