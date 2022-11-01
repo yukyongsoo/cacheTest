@@ -13,7 +13,7 @@ class CacheTestApplicationTests(
     private var redisTemplateService: RedisTemplateService
 ) {
     init {
-        val hitRate = 1L..100L
+        val hitRate = 1L..50L
 
         hitRate.forEach {
             springCacheService.get(it)

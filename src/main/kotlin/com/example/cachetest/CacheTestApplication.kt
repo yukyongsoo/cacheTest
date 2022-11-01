@@ -1,6 +1,7 @@
 package com.example.cachetest
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -47,6 +48,7 @@ class Config{
     @Bean
     fun getObjectMapper(): ObjectMapper {
         return ObjectMapper()
+            .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
             .registerModule(JavaTimeModule())
             .registerModule(KotlinModule.Builder().build())
     }

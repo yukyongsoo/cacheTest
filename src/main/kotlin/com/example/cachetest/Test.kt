@@ -1,6 +1,6 @@
 package com.example.cachetest
 
-import java.time.LocalDate
+import java.time.LocalDateTime
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Id
@@ -16,7 +16,7 @@ class Test(
     @Column(name = "column_2", nullable = false)
     val col2: String,
     @Column(name = "column_3", nullable = false)
-    val col3: LocalDate,
+    val col3: LocalDateTime,
     @Column(name = "column_4", nullable = false, columnDefinition = "TINYINT")
     val col4: Int
 )
