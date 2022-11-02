@@ -3,13 +3,10 @@ package com.example.cachetest
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Disabled
-import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.TestInstance
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.TestConstructor
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -63,7 +60,7 @@ class SpringHit50: CacheTestApplicationTests() {
 class SpringHit75: CacheTestApplicationTests() {
     @BeforeEach
     fun initCache() {
-        initCache(TestSupporter.hitRate75)
+        initCache(TestSupporter.hitRate70)
     }
 }
 

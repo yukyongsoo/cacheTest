@@ -7,7 +7,6 @@ import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.TestInstance
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.TestConstructor
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -61,7 +60,7 @@ class RedisHit50: RedisTestApplicationTests() {
 class RedisHit75: RedisTestApplicationTests() {
     @BeforeEach
     fun initCache() {
-        initCache(TestSupporter.hitRate75)
+        initCache(TestSupporter.hitRate70)
     }
 }
 
