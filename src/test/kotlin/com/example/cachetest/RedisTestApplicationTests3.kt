@@ -16,7 +16,7 @@ class RedisTestApplicationTests3{
     protected lateinit var redisTemplateService: RedisTemplateService3
 
     @BeforeEach
-    fun initCache(hitRate: LongRange) {
+    fun initCache() {
         redisTemplateService.addCache(0)
     }
 

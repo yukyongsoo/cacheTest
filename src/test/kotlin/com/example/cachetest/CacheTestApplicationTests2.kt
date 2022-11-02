@@ -14,9 +14,9 @@ import org.springframework.test.context.TestConstructor
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @Disabled
-class CacheTestApplicationTests{
+class CacheTestApplicationTests2{
     @Autowired
-    protected lateinit var springCacheService: SpringCacheService
+    protected lateinit var springCacheService: SpringCacheService2
 
     fun initCache(hitRate: LongRange) {
         hitRate.forEach {
@@ -31,45 +31,45 @@ class CacheTestApplicationTests{
 
     @RepeatedTest(TestSupporter.repeatSize)
     fun springTest() {
-        for (id in TestSupporter.testRange) {
+        for (id in TestSupporter.test2Range) {
             springCacheService.get(id)
         }
     }
 }
 
-class SpringHit0: CacheTestApplicationTests()
+class Spring2Hit0: CacheTestApplicationTests2()
 
-class SpringHit10: CacheTestApplicationTests() {
+class Spring2Hit10: CacheTestApplicationTests2() {
     @BeforeEach
     fun initCache() {
-        initCache(TestSupporter.hitRate10)
+        initCache(1L..1L)
     }
 }
 
-class SpringHit25: CacheTestApplicationTests() {
+class Spring2Hit20: CacheTestApplicationTests2() {
     @BeforeEach
     fun initCache() {
-        initCache(TestSupporter.hitRate25)
+        initCache(1L..2L)
     }
 }
 
-class SpringHit50: CacheTestApplicationTests() {
+class Spring2Hit50: CacheTestApplicationTests2() {
     @BeforeEach
     fun initCache() {
-        initCache(TestSupporter.hitRate50)
+        initCache(1L..5L)
     }
 }
 
-class SpringHit75: CacheTestApplicationTests() {
+class Spring2Hit70: CacheTestApplicationTests2() {
     @BeforeEach
     fun initCache() {
-        initCache(TestSupporter.hitRate75)
+        initCache(1L..7L)
     }
 }
 
-class SpringHit100: CacheTestApplicationTests() {
+class Spring2Hit100: CacheTestApplicationTests2() {
     @BeforeEach
     fun initCache() {
-        initCache(TestSupporter.hitRate100)
+        initCache(1L..10L)
     }
 }

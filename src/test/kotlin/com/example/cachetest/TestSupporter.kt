@@ -1,7 +1,7 @@
 package com.example.cachetest
 
 object TestSupporter {
-    const val repeatSize = 1000
+    const val repeatSize = 1
 
     val testRange = 1L..100L
     val test2Range = 1L..10L
