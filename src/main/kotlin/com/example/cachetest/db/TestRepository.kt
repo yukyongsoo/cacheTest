@@ -1,4 +1,4 @@
-package com.example.cachetest
+package com.example.cachetest.db
 
 import org.springframework.data.jpa.repository.JpaRepository
 

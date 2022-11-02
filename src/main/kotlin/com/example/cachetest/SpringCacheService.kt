@@ -1,5 +1,7 @@
 package com.example.cachetest
 
+import com.example.cachetest.db.Test
+import com.example.cachetest.db.TestRepository
 import org.springframework.cache.CacheManager
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.repository.findByIdOrNull

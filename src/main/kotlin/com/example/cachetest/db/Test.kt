@@ -1,4 +1,4 @@
-package com.example.cachetest
+package com.example.cachetest.db
 
 import java.time.LocalDateTime
 import javax.persistence.Column

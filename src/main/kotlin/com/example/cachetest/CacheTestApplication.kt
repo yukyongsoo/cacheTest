@@ -1,5 +1,8 @@
 package com.example.cachetest
 
+import com.example.cachetest.db.Test
+import com.example.cachetest.db.Test2
+import com.example.cachetest.db.Test3
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
@@ -14,7 +17,6 @@ import org.springframework.data.redis.cache.RedisCacheConfiguration
 import org.springframework.data.redis.cache.RedisCacheManager
 import org.springframework.data.redis.connection.RedisConnectionFactory
 import org.springframework.data.redis.core.RedisTemplate
-import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer
 import org.springframework.data.redis.serializer.RedisSerializationContext
 import org.springframework.data.redis.serializer.StringRedisSerializer
@@ -36,10 +38,33 @@ class Config{
         redisConnectionFactory: RedisConnectionFactory,
         objectMapper: ObjectMapper
     ): RedisTemplate<String, Test> {
-        return RedisTemplate<String, Test>().apply {
+        return template(redisConnectionFactory, objectMapper)
+    }
+
+    @Bean
+    fun test2RedisTemplate(
+        redisConnectionFactory: RedisConnectionFactory,
+        objectMapper: ObjectMapper
+    ): RedisTemplate<String, List<Test2>> {
+        return template(redisConnectionFactory, objectMapper)
+    }
+
+    @Bean
+    fun test3RedisTemplate(
+        redisConnectionFactory: RedisConnectionFactory,
+        objectMapper: ObjectMapper
+    ): RedisTemplate<String, List<Test3>> {
+        return template(redisConnectionFactory, objectMapper)
+    }
+
+    private inline fun <reified T> template(
+        redisConnectionFactory: RedisConnectionFactory,
+        objectMapper: ObjectMapper
+    ): RedisTemplate<String, T> {
+        return RedisTemplate<String, T>().apply {
             setConnectionFactory(redisConnectionFactory)
             keySerializer = stringSerializer
-            valueSerializer = Jackson2JsonRedisSerializer(Test::class.java).apply {
+            valueSerializer = Jackson2JsonRedisSerializer(T::class.java).apply {
                 setObjectMapper(objectMapper)
             }
         }
@@ -76,6 +101,7 @@ class Config{
 
         return RedisCacheManager.RedisCacheManagerBuilder.fromConnectionFactory(
             connectionFactory
-        ).cacheDefaults(redisCacheConfiguration).build()
+        ).cacheDefaults(redisCacheConfiguration).
+        build()
     }
 }
