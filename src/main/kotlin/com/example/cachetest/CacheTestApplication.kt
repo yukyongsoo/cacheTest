@@ -17,6 +17,7 @@ import org.springframework.data.redis.cache.RedisCacheConfiguration
 import org.springframework.data.redis.cache.RedisCacheManager
 import org.springframework.data.redis.connection.RedisConnectionFactory
 import org.springframework.data.redis.core.RedisTemplate
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer
 import org.springframework.data.redis.serializer.RedisSerializationContext
 import org.springframework.data.redis.serializer.StringRedisSerializer
@@ -91,17 +92,15 @@ class Config{
             )
             .serializeValuesWith(
                 RedisSerializationContext.SerializationPair.fromSerializer(
-                    Jackson2JsonRedisSerializer(Test::class.java).apply {
-                        setObjectMapper(objectMapper)
-                    }
+                    GenericJackson2JsonRedisSerializer(objectMapper)
                 )
             )
             .disableCachingNullValues()
-            .entryTtl(Duration.ofHours(5L))
+            .entryTtl(Duration.ofHours(1L))
 
         return RedisCacheManager.RedisCacheManagerBuilder.fromConnectionFactory(
             connectionFactory
-        ).cacheDefaults(redisCacheConfiguration).
-        build()
+        ).cacheDefaults(redisCacheConfiguration)
+        .build()
     }
 }
