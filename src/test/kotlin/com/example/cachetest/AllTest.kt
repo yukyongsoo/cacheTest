@@ -1,22 +1,31 @@
 package com.example.cachetest
 
+import org.junit.jupiter.api.Test
 import org.junit.platform.suite.api.SelectClasses
 import org.junit.platform.suite.api.Suite
+import org.springframework.boot.test.context.SpringBootTest
 
+@SpringBootTest
+class DummyTest {
+    @Test
+    fun init() {
+
+    }
+}
 @Suite
-@SelectClasses(PkSelectTest::class, IndexSelectTest::class, AllSelectTest::class)
+@SelectClasses(DummyTest::class, PkSelectTest::class, IndexSelectTest::class, AllSelectTest::class)
 class AllTest
 
 @Suite
-@SelectClasses(SpringTest::class, NonTest::class, TemplateTest::class)
+@SelectClasses(DummyTest::class, SpringTest::class, NonTest::class, TemplateTest::class)
 class PkSelectTest
 
 @Suite
-@SelectClasses(Spring2Test::class, NonTest2::class, TemplateTest2::class)
+@SelectClasses(DummyTest::class, Spring2Test::class, NonTest2::class, TemplateTest2::class)
 class IndexSelectTest
 
 @Suite
-@SelectClasses(Spring3Test::class, NonTest3::class, TemplateTest3::class)
+@SelectClasses(DummyTest::class, Spring3Test::class, NonTest3::class, TemplateTest3::class)
 class AllSelectTest
 
 @Suite

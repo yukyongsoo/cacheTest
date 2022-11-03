@@ -19,7 +19,7 @@ class CacheTestApplicationTests3{
 
     @BeforeEach
     fun initCache() {
-        springCacheService.get(0)
+        springCacheService.get(1)
     }
 
     @AfterEach

@@ -17,7 +17,7 @@ class RedisTestApplicationTests3{
 
     @BeforeEach
     fun initCache() {
-        redisTemplateService.addCache(0)
+        redisTemplateService.addCache(1)
     }
 
     @AfterEach
@@ -28,7 +28,7 @@ class RedisTestApplicationTests3{
     @RepeatedTest(TestSupporter.repeatSize)
     fun `레디스 템플릿 조회`() {
         for (id in TestSupporter.test3Range) {
-            redisTemplateService.get(id)
+            redisTemplateService.get(1)
         }
     }
 }
