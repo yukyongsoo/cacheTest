@@ -11,10 +11,15 @@ import org.springframework.test.context.TestConstructor
 class NonCacheTestApplicationTests3(
     private val nonCacheService: NonCacheService3,
 ) {
+    var times = 0L
     @RepeatedTest(TestSupporter.repeatSize)
     fun `직접 데이터베이스 조회`() {
+        times = System.currentTimeMillis()
+
         for (id in TestSupporter.test3Range) {
             nonCacheService.get(id)
         }
+        println(System.currentTimeMillis() - times)
+
     }
 }

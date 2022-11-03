@@ -15,14 +15,19 @@ class CacheTestApplicationTests{
     @Autowired
     protected lateinit var springCacheService: SpringCacheService
 
+    var times = 0L
+
     fun initCache(hitRate: LongRange) {
         hitRate.forEach {
             springCacheService.get(it)
         }
+
+        times = System.currentTimeMillis()
     }
 
     @AfterEach
     fun clearCache() {
+        println(System.currentTimeMillis() - times)
         springCacheService.clear()
     }
 

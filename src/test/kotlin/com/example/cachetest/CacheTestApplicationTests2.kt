@@ -15,18 +15,22 @@ class CacheTestApplicationTests2{
     @Autowired
     protected lateinit var springCacheService: SpringCacheService2
 
+    var times = 0L
+
     fun initCache(hitRate: LongRange) {
         hitRate.forEach {
             springCacheService.get(it)
         }
+        times = System.currentTimeMillis()
     }
 
     @AfterEach
     fun clearCache() {
+        println(System.currentTimeMillis() - times)
         springCacheService.clear()
     }
 
-    @RepeatedTest(TestSupporter.repeatSize)
+    @RepeatedTest(100)
     fun springTest() {
         for (id in TestSupporter.test2Range) {
             springCacheService.get(id)

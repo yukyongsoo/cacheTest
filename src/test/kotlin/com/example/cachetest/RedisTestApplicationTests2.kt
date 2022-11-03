@@ -16,14 +16,20 @@ class RedisTestApplicationTests2{
     @Autowired
     protected lateinit var redisTemplateService: RedisTemplateService2
 
+    var times = 0L
+
     fun initCache(hitRate: LongRange) {
         hitRate.forEach {
             redisTemplateService.addCache(it)
         }
+        times = System.currentTimeMillis()
+
     }
 
     @AfterEach
     fun clearCache() {
+        println(System.currentTimeMillis() - times)
+
         redisTemplateService.clear()
     }
 

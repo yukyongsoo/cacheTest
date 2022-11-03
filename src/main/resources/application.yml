@@ -9,4 +9,4 @@ spring:
     init:
       mode: always
   jpa:
-    show-sql: true
+    show-sql: false

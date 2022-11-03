@@ -17,13 +17,17 @@ class CacheTestApplicationTests3{
     @Autowired
     protected lateinit var springCacheService: SpringCacheService3
 
+    var times = 0L
+
     @BeforeEach
     fun initCache() {
         springCacheService.get(1)
+        times = System.currentTimeMillis()
     }
 
     @AfterEach
     fun clearCache() {
+        println(System.currentTimeMillis() - times)
         springCacheService.clear()
     }
 
