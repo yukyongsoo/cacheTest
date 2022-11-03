@@ -19,11 +19,12 @@ class RedisTestApplicationTests2{
     var times = 0L
 
     fun initCache(hitRate: LongRange) {
-        hitRate.forEach {
-            redisTemplateService.addCache(it)
-        }
-        times = System.currentTimeMillis()
+        if (hitRate.first != 0L)
+            hitRate.forEach {
+                redisTemplateService.addCache(it)
+            }
 
+        times = System.currentTimeMillis()
     }
 
     @AfterEach
@@ -41,7 +42,12 @@ class RedisTestApplicationTests2{
     }
 }
 
-class Redis2Hit0: RedisTestApplicationTests2()
+class Redis2Hit0: RedisTestApplicationTests2() {
+    @BeforeEach
+    fun initCache() {
+        initCache(0L..0L)
+    }
+}
 
 class Redis2Hit10: RedisTestApplicationTests2() {
     @BeforeEach

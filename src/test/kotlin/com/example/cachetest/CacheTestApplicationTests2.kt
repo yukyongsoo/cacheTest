@@ -18,9 +18,10 @@ class CacheTestApplicationTests2{
     var times = 0L
 
     fun initCache(hitRate: LongRange) {
-        hitRate.forEach {
-            springCacheService.get(it)
-        }
+        if (hitRate.first != 0L)
+            hitRate.forEach {
+                springCacheService.get(it)
+            }
         times = System.currentTimeMillis()
     }
 
@@ -38,7 +39,12 @@ class CacheTestApplicationTests2{
     }
 }
 
-class Spring2Hit0: CacheTestApplicationTests2()
+class Spring2Hit0: CacheTestApplicationTests2() {
+    @BeforeEach
+    fun initCache() {
+        initCache(0L..0L)
+    }
+}
 
 class Spring2Hit10: CacheTestApplicationTests2() {
     @BeforeEach
