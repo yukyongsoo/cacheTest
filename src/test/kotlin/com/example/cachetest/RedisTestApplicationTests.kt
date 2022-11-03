@@ -43,10 +43,10 @@ class RedisHit10: RedisTestApplicationTests() {
     }
 }
 
-class RedisHit25: RedisTestApplicationTests() {
+class RedisHit20: RedisTestApplicationTests() {
     @BeforeEach
     fun initCache() {
-        initCache(TestSupporter.hitRate25)
+        initCache(TestSupporter.hitRate20)
     }
 }
 
@@ -57,7 +57,7 @@ class RedisHit50: RedisTestApplicationTests() {
     }
 }
 
-class RedisHit75: RedisTestApplicationTests() {
+class RedisHit70: RedisTestApplicationTests() {
     @BeforeEach
     fun initCache() {
         initCache(TestSupporter.hitRate70)

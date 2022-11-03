@@ -43,10 +43,10 @@ class SpringHit10: CacheTestApplicationTests() {
     }
 }
 
-class SpringHit25: CacheTestApplicationTests() {
+class SpringHit20: CacheTestApplicationTests() {
     @BeforeEach
     fun initCache() {
-        initCache(TestSupporter.hitRate25)
+        initCache(TestSupporter.hitRate20)
     }
 }
 
@@ -57,7 +57,7 @@ class SpringHit50: CacheTestApplicationTests() {
     }
 }
 
-class SpringHit75: CacheTestApplicationTests() {
+class SpringHit70: CacheTestApplicationTests() {
     @BeforeEach
     fun initCache() {
         initCache(TestSupporter.hitRate70)

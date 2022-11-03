@@ -27,6 +27,7 @@ dependencies {
 
     runtimeOnly("mysql:mysql-connector-java:8.0.31")
 
+    testImplementation("org.junit.platform:junit-platform-suite")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
