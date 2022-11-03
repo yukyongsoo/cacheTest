@@ -31,7 +31,7 @@ class CacheTestApplicationTests2{
         springCacheService.clear()
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(TestSupporter.repeatSize)
     fun springTest() {
         for (id in TestSupporter.test2Range) {
             springCacheService.get(id)
