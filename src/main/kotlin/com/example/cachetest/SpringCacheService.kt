@@ -12,7 +12,7 @@ class SpringCacheService(
     private val testRepository: TestRepository,
     private val cacheManager: CacheManager
 ) {
-    @Cacheable("spring")
+    @Cacheable("spring", cacheManager = "spring")
     fun get(id: Long): Test? {
         return testRepository.findByIdOrNull(id)
     }

@@ -13,6 +13,7 @@ import org.springframework.cache.CacheManager
 import org.springframework.cache.annotation.EnableCaching
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Primary
 import org.springframework.data.redis.cache.RedisCacheConfiguration
 import org.springframework.data.redis.cache.RedisCacheManager
 import org.springframework.data.redis.connection.RedisConnectionFactory
@@ -79,8 +80,32 @@ class Config{
             .registerModule(KotlinModule.Builder().build())
     }
 
-    @Bean
+    @Primary
+    @Bean(name = ["spring"])
     fun getCacheManager(
+        connectionFactory: RedisConnectionFactory,
+        objectMapper: ObjectMapper
+    ): CacheManager {
+        return makeCacheManger<Test>(connectionFactory, objectMapper)
+    }
+
+    @Bean(name = ["spring2"])
+    fun getCacheManager2(
+        connectionFactory: RedisConnectionFactory,
+        objectMapper: ObjectMapper
+    ): CacheManager {
+        return makeCacheManger<List<Test2>>(connectionFactory, objectMapper)
+    }
+
+    @Bean(name = ["spring3"])
+    fun getCacheManager3(
+        connectionFactory: RedisConnectionFactory,
+        objectMapper: ObjectMapper
+    ): CacheManager {
+        return makeCacheManger<List<Test3>>(connectionFactory, objectMapper)
+    }
+
+    private inline fun <reified V> makeCacheManger(
         connectionFactory: RedisConnectionFactory,
         objectMapper: ObjectMapper
     ): CacheManager {
@@ -92,7 +117,9 @@ class Config{
             )
             .serializeValuesWith(
                 RedisSerializationContext.SerializationPair.fromSerializer(
-                    GenericJackson2JsonRedisSerializer(objectMapper)
+                    Jackson2JsonRedisSerializer(V::class.java).apply {
+                        setObjectMapper(objectMapper)
+                    }
                 )
             )
             .disableCachingNullValues()
@@ -101,6 +128,6 @@ class Config{
         return RedisCacheManager.RedisCacheManagerBuilder.fromConnectionFactory(
             connectionFactory
         ).cacheDefaults(redisCacheConfiguration)
-        .build()
+            .build()
     }
 }

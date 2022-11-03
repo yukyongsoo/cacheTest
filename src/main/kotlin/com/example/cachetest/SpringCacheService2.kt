@@ -11,7 +11,7 @@ class SpringCacheService2(
     private val testRepository: Test2Repository,
     private val cacheManager: CacheManager
 ) {
-    @Cacheable("spring2")
+    @Cacheable("spring2",  cacheManager = "spring2")
     fun get(id: Long): List<Test2> {
         return testRepository.findAllByCol4(id.toInt())
     }
