@@ -1,5 +1,9 @@
 package com.example.cachetest
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Disabled
@@ -34,8 +38,12 @@ class CacheTestApplicationTests{
 
     @RepeatedTest(TestSupporter.repeatSize)
     fun springTest() {
-        for (id in TestSupporter.testRange) {
-            springCacheService.get(id)
+        runBlocking(Dispatchers.IO) {
+            TestSupporter.testRange.map {
+                async {
+                    springCacheService.get(it)
+                }
+            }.awaitAll()
         }
     }
 }

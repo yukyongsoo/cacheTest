@@ -1,5 +1,9 @@
 package com.example.cachetest
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Disabled
@@ -35,8 +39,12 @@ class RedisTestApplicationTests{
 
     @RepeatedTest(TestSupporter.repeatSize)
     fun `레디스 템플릿 조회`() {
-        for (id in TestSupporter.testRange) {
-            redisTemplateService.get(id)
+        runBlocking(Dispatchers.IO) {
+            TestSupporter.testRange.map {
+                async {
+                    redisTemplateService.get(it)
+                }
+            }.awaitAll()
         }
     }
 }
